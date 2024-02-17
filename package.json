@@ -5,7 +5,7 @@
   "main": "dist/bot.js",
   "scripts": {
     "build": "tsc",
-    "start": "env-cmd ts-node src/bot.ts",
+    "start": "node dist/bot.js",
     "dev": "env-cmd ts-node-dev src/bot.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
