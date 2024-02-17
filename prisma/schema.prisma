@@ -1,0 +1,14 @@
+model User {
+  chatId BigInt @id
+  walletSecretKey String
+  walletPublicKey String
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
