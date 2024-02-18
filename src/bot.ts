@@ -27,29 +27,29 @@ bot.use(conversations());
 
 const composeStartMessage = (pk: string, solBalance: number, libraBalance: number, newUser: boolean) => {
     if (newUser) {
-        return `Welcome to Libra Bot
-A bot for staking Libra tokens 💹 and earning rewards 📈.
+        return `Welcome to Stake Bot
+A bot for staking Stake tokens 💹 and earning rewards 📈.
 
-You currently have no SOL balance. To get started with staking, send some SOL to your libra wallet address:
+You currently have no SOL balance. To get started with staking, send some SOL to your Stake wallet address:
 
 <code>${pk}</code> (tap to copy)
 
-Once done, transfer the amount of $Libra Tokens you would like to stake into the above wallet address.
+Once done, transfer the amount of $Stake Tokens you would like to stake into the above wallet address.
 
-You can then click on the Stake and unstake buttons below to stake and unstake $Libra tokens from your wallet.
+You can then click on the Stake and unstake buttons below to stake and unstake $Stake tokens from your wallet.
 For more info on your wallet and to retrieve your private key, tap the wallet button below. Please do not expose your private key ❗️❗️.`;
     } else {
-        return `Welcome to Libra Bot
-A bot for staking Libra tokens 💹 and earning rewards 📈.
+        return `Welcome to Stake Bot
+A bot for staking Stake tokens 💹 and earning rewards 📈.
 
 SOL BALANCE: ${solBalance}
-$LIBRA BALANCE: ${libraBalance}
+$STAKE BALANCE: ${libraBalance}
 
 WALLET: <code>${pk}</code> (tap to copy)
 
-You can transfer SOL and $Libra to the wallet above for staking.
+You can transfer SOL and $Stake to the wallet above for staking.
 
-You can then click on the Stake and unstake buttons below to stake and unstake $Libra tokens from your wallet.
+You can then click on the Stake and unstake buttons below to stake and unstake $Stake tokens from your wallet.
 For more info on your wallet and to retrieve your private key, tap the wallet button below. Please do not expose your private key ❗️❗️.`
     }
 }
@@ -59,7 +59,7 @@ export const composeWalletMessage = (pk: string, solBalance: number, libraBalanc
     
   Address: <code>${pk}</code>
   SOL Balance: ${solBalance} SOL
-  LIBRA Balance: ${libraBalance} LIBRA
+  STAKE Balance: ${libraBalance} STAKE
   
   Tap to copy the address and send SOL to deposit.`;
 }
@@ -133,13 +133,13 @@ const stakingInfoHandler = async (ctx: BotContext) => {
             const message = `<b>Your Staking Info 🚀</b>:
 
 
-  Total Staked 💰: ${totalStaked} LIBRA
+  Total Staked 💰: ${totalStaked} STAKE
   
   Stake Time ⏰: ${formattedStakeTime}
   
   APY 🤑: ${apy}%
   
-  Current Earnings 💵: ${earnings} LIBRA
+  Current Earnings 💵: ${earnings} STAKE
   
   Unstake Time: You cannot unstake until after 24hrs of staking.`;
             const keyboard = new InlineKeyboard();
@@ -184,7 +184,7 @@ const walletHandler = async (ctx: BotContext) => {
 }
 
 const stake = async (conversation: BotConversation, ctx: BotContext) => {
-    await ctx.reply("Enter amount of $Libra to stake...");
+    await ctx.reply("Enter amount of $Stake to stake...");
     const user = await prisma.user.findUnique({
         where: {
             chatId: ctx.chat?.id
@@ -226,16 +226,16 @@ const stake = async (conversation: BotConversation, ctx: BotContext) => {
                         userTokenAccount.address
                     )
                     if (success) {
-                        await ctx.reply(`${amount} $Libra successfully staked 🚀🎉`)
+                        await ctx.reply(`${amount} $Stake successfully staked 🚀🎉`)
                     } else {
                         await ctx.reply("An Error Occurred: Could not stake tokens. ❌")
                     }
                 } else {
-                    await ctx.reply("Insufficient $Libra balance for staking 😔")
+                    await ctx.reply("Insufficient $Stake balance for staking 😔")
                 }
 
             } else {
-                await ctx.reply("Token account for $Libra not found ❌. Please send some tokens into your bot wallet.")
+                await ctx.reply("Token account for $Stake not found ❌. Please send some tokens into your bot wallet.")
             }
 
         } else {
@@ -285,12 +285,12 @@ bot.callbackQuery("unstake", async (ctx: BotContext) => {
                 userTokenAccount.address
             );
             if (success) {
-                await ctx.reply(`$Libra successfully un-staked 🚀🎉`)
+                await ctx.reply(`$Stake successfully un-staked 🚀🎉`)
             } else {
                 await ctx.reply("An Error Occurred: Could not un-stake tokens. ❌")
             }
         } else {
-            await ctx.reply("Token account for $Libra not found ❌. Please send some tokens into your bot wallet.")
+            await ctx.reply("Token account for $Stake not found ❌. Please send some tokens into your bot wallet.")
         }
     }
 })
